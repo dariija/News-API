@@ -1,12 +1,13 @@
 import './sources.css';
+import DataSources from '../../types/dataSources';
 
 class Sources {
-    draw(data) {
-        const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp');
+    draw(data: DataSources[]): void {
+        const fragment: DocumentFragment = document.createDocumentFragment();
+        const sourceItemTemp: HTMLTemplateElement = document.querySelector('#sourceItemTemp');
 
         data.forEach((item) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true);
+            const sourceClone: HTMLElement = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
             sourceClone.querySelector('.source__item-name').textContent = item.name;
             sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
@@ -14,7 +15,8 @@ class Sources {
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources').append(fragment);
+        const sources: HTMLElement = document.querySelector('.sources');
+        sources.append(fragment);
     }
 }
 
