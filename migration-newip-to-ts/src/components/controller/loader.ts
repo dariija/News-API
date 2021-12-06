@@ -3,15 +3,15 @@ import ApiRequest from '../types/apiRequest';
 
 class Loader {
     baseLink: string;
-    options: {apiKey: string};
+    options: { apiKey: string };
 
-    constructor(baseLink: string, options: {apiKey: string}) {
+    constructor(baseLink: string, options: { apiKey: string }) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp<T>( 
-        {endpoint, options = {}} : ApiRequest,
+    getResp<T>(
+        { endpoint, options = {} }: ApiRequest,
         callback: Callback<T> = () => {
             console.error('No callback for GET response');
         }
@@ -29,9 +29,9 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: {sources?: string}, endpoint: string): string {
-        const urlOptions: {apiKey: string, sources?: string} = { ...this.options, ...options };
-        let url: string = `${this.baseLink}${endpoint}?`;
+    makeUrl(options: { sources?: string }, endpoint: string): string {
+        const urlOptions: Record<string, string> = { ...this.options, ...options };
+        let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
@@ -40,11 +40,11 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load<T>(method: string, endpoint: string, callback: Callback<T>, options: {sources?: string} = {}): void {
+    load<T>(method: string, endpoint: string, callback: Callback<T>, options: { sources?: string } = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res: Response) => res.json())
-            .then((data: T) => callback(data))
+            .then((res) => res.json() as Promise<T>)
+            .then((data) => callback(data))
             .catch((err: Error) => console.error(err));
     }
 }
