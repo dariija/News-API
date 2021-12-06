@@ -1,13 +1,14 @@
 .news__item {
     display: flex;
     flex-direction: column;
-    margin: 1rem auto;
+    margin: 1.5rem auto;
     margin-bottom: 1.6%;
     background: #fff;
     color: #333;
     line-height: 1.4;
     font-family: Arial, sans-serif;
     border-radius: 5px;
+    box-shadow: 0px 0px 20px 2px rgb(34 60 80 / 20%);
     overflow: hidden;
 }
 

@@ -6,18 +6,31 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>NewsPortal</title>
     </head>
-    <body>
-        <header>
-            <h1>News Portal</h1>
+    <body class="body">
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">News Portal</h1>
+            <div>
         </header>
-        <main>
-            <div class="sources buttons"></div>
-            <div class="news"></div>
+        <main class="main">
+            <div class="container">
+                <div class="sources buttons"></div>
+                <div class="news"></div>
+            </div>
         </main>
-        <footer>
-            <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
-            </p>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__content">
+                    <a class="link" href="https://github.com/dariija" target="_blank">dariija</a>
+                    <p class="copyright">
+                        Copyright <a class="link" href="https://newsapi.org">NewsAPI</a>
+                    </p>
+
+                    <a class="link" href="https://rs.school/js/" target="_blank">
+                        <div class="rsschool-logo"></div>
+                    </a>    
+                </div>
+            </div>
         </footer>
 
         <template id="sourceItemTemp">
@@ -45,7 +58,7 @@
                 </div>
             </div>
         </template>
-
+        
         <script src="./index.js"></script>
     </body>
 </html>
