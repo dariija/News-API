@@ -1,8 +1,8 @@
 type ApiRequest = {
-    endpoint: string,
+    endpoint: string;
     options?: {
-        sources?: string
-    }
-}
+        sources?: string;
+    };
+};
 
-export default ApiRequest
+export default ApiRequest;
