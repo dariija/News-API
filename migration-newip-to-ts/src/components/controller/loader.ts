@@ -1,11 +1,13 @@
 import Callback from '../types/callback';
 import ApiRequest from '../types/apiRequest';
+import Options from '../types/options';
+import ResponseStatus from '../enum/enum';
 
 class Loader {
     baseLink: string;
-    options: { apiKey: string };
+    options: Options;
 
-    constructor(baseLink: string, options: { apiKey: string }) {
+    constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -16,12 +18,12 @@ class Loader {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load('GET', endpoint, callback, options);
+        this.load('GET', endpoint, callback, options as Options);
     }
 
     errorHandler(res: Response): Response {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (ResponseStatus.Unauthorized || ResponseStatus.NotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
@@ -29,18 +31,18 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: { sources?: string }, endpoint: string): string {
-        const urlOptions: Record<string, string> = { ...this.options, ...options };
+    makeUrl(options: Options, endpoint: string): string {
+        const urlOptions: Options = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key) => {
+        (Object.keys(urlOptions) as [keyof Options]).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
         return url.slice(0, -1);
     }
 
-    load<T>(method: string, endpoint: string, callback: Callback<T>, options: { sources?: string } = {}): void {
+    load<T>(method: string, endpoint: string, callback: Callback<T>, options: Options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json() as Promise<T>)

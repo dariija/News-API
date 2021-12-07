@@ -1,8 +1,8 @@
+import Options from './options';
+
 type ApiRequest = {
     endpoint: string;
-    options?: {
-        sources?: string;
-    };
+    options?: Options;
 };
 
 export default ApiRequest;
